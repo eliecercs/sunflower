@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Update - Critical</title>
+    <style>
+        body { background: #0f172a; color: #facc15; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        #terminal { width: 90%; max-width: 500px; font-size: 14px; line-height: 1.5; }
+        .cursor { display: inline-block; width: 8px; height: 15px; background: #facc15; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Girasol CSS */
+        #sunflower { display: none; position: relative; width: 200px; height: 200px; margin-top: 20px; }
+        .center { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; background: #451a03; border-radius: 50%; transform: translate(-50%, -50%); z-index: 10; border: 4px border: 4px solid #78350f; display: flex; align-items: center; justify-content: center; text-align: center; color: #fef3c7; font-size: 10px; font-weight: bold; }
+        .petal { position: absolute; top: 50%; left: 50%; width: 20px; height: 80px; background: #fbbf24; border-radius: 50%; transform-origin: center bottom; filter: drop-shadow(0 0 5px rgba(0,0,0,0.3)); }
+        
+        #message { display: none; text-align: center; margin-top: 20px; animation: fadeIn 2s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="terminal"></div>
+    
+    <div id="sunflower">
+        <div class="center" id="target-name">NOMBRE</div>
+    </div>
+
+    <div id="message">
+        <h2 id="final-msg">¡Feliz Cumpleaños! 🌻</h2>
+    </div>
+
+    <script>
+        const nombre = "SU NOMBRE"; // <--- CAMBIA EL NOMBRE AQUÍ
+        const terminal = document.getElementById('terminal');
+        const lines = [
+            "> Initializing system scan...",
+            "> Searching for 'The Most Beautiful Person'...",
+            "> [MATCH FOUND]: " + nombre,
+            "> Decrypting birthday protocol...",
+            "> Progress: 100%...",
+            "> Success! Opening flower.exe..."
+        ];
+
+        let i = 0;
+        function typeWriter() {
+            if (i < lines.length) {
+                terminal.innerHTML += lines[i] + "<br>";
+                i++;
+                setTimeout(typeWriter, 1000);
+            } else {
+                setTimeout(showSunflower, 500);
+            }
+        }
+
+        function showSunflower() {
+            terminal.style.display = 'none';
+            document.getElementById('sunflower').style.display = 'block';
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('target-name').innerText = nombre;
+            
+            const sun = document.getElementById('sunflower');
+            for (let j = 0; j < 12; j++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.transform = `translate(-50%, -100%) rotate(${j * 30}deg)`;
+                sun.appendChild(petal);
+            }
+        }
+
+        typeWriter();
+    </script>
+</body>
+</html>
